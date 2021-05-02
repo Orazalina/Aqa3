@@ -72,4 +72,19 @@ public class OrderCardTest {
         String expectedMessage = "Телефон указан неверно. Должно быть 11 цифр, например, +79012345678.";
         Assertions.assertEquals(expectedMessage.trim(), message.trim());
     }
+
+    @Test
+    void withNoName() {
+        driver.get("http://localhost:9999");
+        List<WebElement> textFields = driver.findElements(By.className("input__control"));
+        textFields.get(1).sendKeys("+77777777");
+        driver.findElement(By.className("checkbox__box")).click();
+        driver.findElement(By.tagName("button")).click();
+        textFields = driver.findElements(By.className("input__sub"));
+        String message = textFields.get(0).getText();
+        String expectedMessage = "Поле обязательно для заполнения";
+        Assertions.assertEquals(expectedMessage.trim(), message.trim());
+    }
+
+
 }
